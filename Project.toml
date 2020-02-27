@@ -1,0 +1,17 @@
+name = "RegularizationModel"
+uuid = "6b34434b-946d-4cb7-a0af-ff4ce8a42af1"
+authors = ["Abel Soares Siqueira <abel.s.siqueira@gmail.com>"]
+version = "0.1.0"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+NLPModels = "a4795742-8479-5a88-8948-cc11e1c8c1a6"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
+SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[compat]
+NLPModels = "0.11"
+
+[targets]
+Test = ["Printf", "SparseArrays", "Test"]
