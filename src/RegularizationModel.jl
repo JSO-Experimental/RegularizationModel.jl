@@ -18,6 +18,14 @@ mutable struct RegNLP <: AbstractNLPModel
   z
 end
 
+show_header(io :: IO, nlp :: RegNLP) = println(io, "RegNLP - Regularized model")
+
+function Base.show(io :: IO, nlp :: RegNLP)
+  show_header(io, nlp)
+  show(io, nlp.meta)
+  show(io, nlp.inner.counters)
+end
+
 function RegNLP(nlp :: AbstractNLPModel, ρ, z)
   n = nlp.meta.nvar
   nnzh = nlp.meta.nnzh + n
@@ -25,13 +33,7 @@ function RegNLP(nlp :: AbstractNLPModel, ρ, z)
                 nlp, ρ, z)
 end
 
-#@default_inner_counters RegNLP inner
-for counter in fieldnames(Counters) ∪ [:sum_counters, :reset!]
-  @eval begin
-    NLPModels.$counter(nlp :: RegNLP) = $counter(nlp.inner)
-  end
-end
-increment!(nlp :: RegNLP, s :: Symbol) = increment!(nlp.inner, s)
+@default_counters RegNLP inner
 
 function NLPModels.obj(nlp :: RegNLP, x :: AbstractVector)
   return obj(nlp.inner, x) + nlp.ρ * norm(x - nlp.z)^2 / 2
