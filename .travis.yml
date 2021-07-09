@@ -8,7 +8,7 @@ julia:
 
 branches:
   only:
-    - master
+    - main
     - /^v\d+\.\d+(\.\d+)?(-\S*)?$/ # tags
 
 after_success:
